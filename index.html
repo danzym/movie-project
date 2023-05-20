@@ -21,7 +21,9 @@
 	</head>
 
 	<body>
-		<nav class="flex bg-black justify-between text-white px-4 py-2 font-Bebas">
+		<nav
+			class="flex bg-black justify-between sticky top-0 left-0 w-full z-10 text-white px-4 py-2 font-Bebas"
+		>
 			<div class="flex flex-col items-center">
 				<img
 					class="w-10 ml-4 mt-3"
@@ -35,11 +37,22 @@
 					<li class="cursor-pointer w-12 hover:font-bold">Home</li>
 					<li class="cursor-pointer w-12 hover:font-bold">Actors</li>
 					<li class="cursor-pointer w-12 hover:font-bold">About</li>
-					<li class="cursor-pointer w-12 hover:font-bold">Genre</li>
-					<li class="cursor-pointer w-12 hover:font-bold">Filter</li>
+					<div id="genre-container">
+						<button id="genres">Genres</button>
+						<!-- genre popover will be appended here -->
+					</div>
+					<div id="filter-container">
+						<button id="filters">Filters</button>
+						<!-- popover will be appended here -->
+					</div>
 				</ul>
 				<div>
-					<input class="rounded m-2 p-2" type="text" placeholder="Search" />
+					<input
+						id="search-movies-input"
+						class="rounded m-2 p-2 text-black"
+						type="text"
+						placeholder="Search"
+					/>
 				</div>
 			</div>
 		</nav>

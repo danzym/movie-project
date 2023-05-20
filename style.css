@@ -1,43 +1,72 @@
-body{
-    font-family: 'Bebas Neue', sans-serif;
+body {
+	font-family: 'Bebas Neue', sans-serif;
 }
 .font-Bebas {
-    font-family: 'Bebas Neue', sans-serif;
+	font-family: 'Bebas Neue', sans-serif;
 }
 
 #movie-backdrop {
-    width: 100%;
+	width: 100%;
 }
 
 .container {
-    padding-top: 32px;
+	padding-top: 32px;
 }
 
 #actors {
-    margin: 24px 16px 0 0;
+	margin: 24px 16px 0 0;
 }
 .HeroImage {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: url(./images/Netflixbg.jpeg);
-    background-size: cover;
-    background-repeat: no-repeat;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	background: url(./images/Netflixbg.jpeg);
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 .layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    z-index: 1;
-    opacity: 0.6;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	z-index: 1;
+	opacity: 0.6;
 }
 .HeroImage > .w-70 {
-    position: relative;
-    z-index: 2;
-  }
+	position: relative;
+	z-index: 2;
+}
+#genres-popover {
+	position: absolute;
+	top: 40px;
+	left: 0;
+	min-width: 150px;
+	height: object-fit;
+	z-index: 3;
+	display: none;
+}
+#filters-popover {
+	position: absolute;
+	top: 40px;
+	left: 0;
+	min-width: 150px;
+	height: object-fit;
+	z-index: 3;
+	display: none;
+}
 
+#filter-container {
+	width: object-fit;
+	height: object-fit;
+	z-index: 3;
+}
+#genre-container {
+	position: relative;
+}
+#filter-container {
+	position: relative;
+}
