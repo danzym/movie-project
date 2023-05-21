@@ -16,8 +16,8 @@ const constructUrl = (path) => {
 };
 
 const movieDetails = async (movie) => {
-	const movieRes = await fetchMovie(movie.id);
-	renderMovie(movieRes);
+  const movieRes = await fetchMovie(movie.id);
+  renderMovie(movieRes);
 };
 
 const fetchMovies = async () => {
@@ -58,7 +58,9 @@ const renderMovies = (movies) => {
 
 
 const renderMovie = (movie) => {
-  CONTAINER.innerHTML = `
+
+  const renderDetails = document.getElementById('details')
+  renderDetails.innerHTML = `
     <div class="row">
         <div class="col-md-4">
              <img id="movie-backdrop" src=${
@@ -82,7 +84,7 @@ const renderMovie = (movie) => {
 
 const prevSlide = () => {
   const slider = document.querySelector('.slider');
-  const slideWidth = slider.scrollWidth / 3;
+  const slideWidth = slider.scrollWidth / 6;
   slider.scrollBy({
     left: -slideWidth,
     behavior: 'smooth',
@@ -91,7 +93,7 @@ const prevSlide = () => {
 
 const nextSlide = () => {
   const slider = document.querySelector('.slider');
-  const slideWidth = slider.scrollWidth / 3;
+  const slideWidth = slider.scrollWidth / 6;
   slider.scrollBy({
     left: slideWidth,
     behavior: 'smooth',
