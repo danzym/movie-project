@@ -70,3 +70,38 @@ body {
 #filter-container {
 	position: relative;
 }
+
+
+ .slider {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+.slide {
+  flex: 0 0 33.33%;
+  scroll-snap-align: center;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+  }
+  
+  .slide img:hover {
+    transform: scale(1.2);
+  }
+
+.slider-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.slider-controls button {
+  margin: 0 0.5rem;
+  padding: 0.5rem;
+}
