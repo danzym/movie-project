@@ -54,13 +54,22 @@ const fetchGenres = async () => {
 		popover.innerHTML = popoverContent;
 		popover.style.display = 'none';
 		popover.style.position = 'absolute';
-		popover.style.backgroundColor = '#000000';
+		popover.style.backgroundColor = 'rgba(0, 0, 0, 0.6);';
 		popover.style.border = '1px solid #000';
-		popover.style.padding = '10px';
+		popover.style.padding = '15px';
 		genres.appendChild(popover);
 		document.querySelectorAll('.genre-btn').forEach((button) => {
-			button.addEventListener('click', function () {
+			button.addEventListener('mouseout', function () {
+				popover.style.backgroundColor = '';
+				popover.style.border = '';
 				popover.style.display = 'none';
+				popover.style.padding = '15px';
+			});
+			button.addEventListener('mouseover', function () {
+				popover.style.backgroundColor = 'black';
+				popover.style.border = '1px solid #000';
+				popover.style.display = 'none';
+				popover.style.padding = '15px';
 			});
 		});
 
@@ -140,9 +149,9 @@ document
 			popover.innerHTML = popoverContent;
 			popover.style.display = 'none';
 			popover.style.position = 'absolute';
-			popover.style.backgroundColor = '#000000';
+			popover.style.backgroundColor = 'rgba(0, 0, 0, 0.6);';
 			popover.style.border = '1px solid #000';
-			popover.style.padding = '10px';
+			popover.style.padding = '15px';
 			document.querySelector('#filters').appendChild(popover);
 		}
 		document.querySelectorAll('.filter-btn').forEach((button) => {

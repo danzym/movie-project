@@ -40,6 +40,7 @@ body {
 	position: relative;
 	z-index: 2;
 }
+/* genres and filter styling */
 #genres-popover {
 	position: absolute;
 	top: 40px;
@@ -48,6 +49,9 @@ body {
 	height: object-fit;
 	z-index: 3;
 	display: none;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(159, 150, 150, 0.27);
+    padding: 12px 16px;
 }
 #filters-popover {
 	position: absolute;
@@ -57,6 +61,9 @@ body {
 	height: object-fit;
 	z-index: 3;
 	display: none;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(159, 150, 150, 0.27);
+    padding: 12px 16px;
 }
 
 #filter-container {
@@ -71,37 +78,63 @@ body {
 	position: relative;
 }
 
-
- .slider {
-  display: flex;
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  width: 100%;
-}
-
-.slide {
-  flex: 0 0 33.33%;
-  scroll-snap-align: center;
-}
-
-.slide img {
+/* genres and filter styling */
+  /*Slider for movies */
+    .slider {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
     width: 100%;
-    height: auto;
-    transition: transform 0.3s ease;
-  }
+    padding: 20px;
+    }
+    .slide {
+    flex: 0 0 33.33%;
+    scroll-snap-align: center;
+    padding-right: 30px;
+    padding-left: 30px;
+    }
   
-  .slide img:hover {
-    transform: scale(1.2);
-  }
-
-.slider-controls {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.slider-controls button {
-  margin: 0 0.5rem;
-  padding: 0.5rem;
-}
+    .slide img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+    
+    .slide img:hover {
+      transform: scale(1.2);
+    }
+  
+    .slider-container {
+        position: relative;
+    }
+      
+      .slider-controls {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 20px;
+    }
+      
+    .slider-controls button {
+        width: 30px;
+        height: 100px;
+        background: rgba(0, 0, 0, 0.3);
+        font-size: 1.5rem;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        z-index: 0;
+    }
+      
+    .prev-button {
+        left: 0;
+    }
+      
+    .next-button {
+        right: 0;
+    }
+/*Slider for movies */

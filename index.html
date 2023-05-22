@@ -20,7 +20,7 @@
 		<title>Movie</title>
 	</head>
 
-	<body>
+	<body class="bg-black">
 		<nav
 			class="flex bg-black justify-between sticky top-0 left-0 w-full z-10 text-white px-4 py-2 font-Bebas"
 		>
@@ -78,12 +78,13 @@
 			</div>
 		</section>
 
-     <div id="details" class="  text-white bg-gray-600">
-      <div class="slider-container  "></div>
+     <div id="details" class="text-white bg-black">
+      <div class="slider-container">
       <div class="slider-controls ">
-        <button class="  text-white  rounded-2xl bg-red-600" onclick="prevSlide()">Prev</button>
-        <button class="  text-white rounded-2xl bg-red-600" onclick="nextSlide()">Next</button>
+        <button class="prev-button text-white rounded  outline-none focus:outline-none" onclick="prevSlide()">&#60;</button>
+        <button class="next-button text-white rounded  outline-none focus:outline-none" onclick="nextSlide()">&#62;</button>
       </div>
+	</div>
     </div>
 
 </body>
