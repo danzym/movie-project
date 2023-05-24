@@ -79,6 +79,94 @@ body {
 }
 
 /* Hide the navbar-items by default on small screens and show toggle button */
+
+#navbar-items {
+	display: flex;
+}
+
+#navbar-items.hidden {
+	display: none;
+}
+
+:hover.genre-btn,
+:hover.filter-btn {
+	text-decoration: underline;
+}
+
+/* Show the navbar-items and hide toggle button on large screens */
+
+.slider {
+	display: flex;
+	overflow-x: scroll;
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+	gap: 1rem;
+	width: 100%;
+	height: 100%;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.slide {
+	flex: 0 0 100%;
+	scroll-snap-align: center;
+	margin-left: 1rem;
+}
+
+.slide img {
+	width: 100%;
+	height: auto;
+	transition: transform 0.3s ease;
+	border-radius: 10px;
+}
+
+.slide img:hover {
+	transform: scale(1.05);
+}
+
+.slider-controls {
+	display: flex;
+	justify-content: center;
+	padding-top: 1rem;
+	width: 100%;
+	padding-bottom: 1rem;
+}
+
+.slider-controls button {
+	margin: 0 0.5rem;
+	padding: 0.5rem;
+}
+.slider-controls button:hover {
+	text-decoration: underline;
+	transform: scale(1.05);
+}
+@media (min-width: 768px) {
+	.slide {
+		flex: 0 0 50%;
+	}
+}
+
+/* Large screens (e.g., desktops) */
+@media (min-width: 1200px) {
+	.slide {
+		flex: 0 0 33.33%;
+	}
+}
+@media (min-width: 769px) {
+	#navbar-items {
+		display: flex;
+		position: relative;
+	}
+	#navbar-toggle {
+		display: none;
+	}
+	#filters-popover {
+		left: 0;
+	}
+	#genres-popover {
+		left: 0;
+	}
+}
 @media (max-width: 768px) {
 	#navbar-items {
 		display: none;
@@ -93,54 +181,4 @@ body {
 	#navbar-toggle {
 		display: block;
 	}
-}
-
-:hover.genre-btn,
-:hover.filter-btn {
-	text-decoration: underline;
-}
-
-/* Show the navbar-items and hide toggle button on large screens */
-@media (min-width: 769px) {
-	#navbar-items {
-		display: flex;
-		position: relative;
-	}
-	#navbar-toggle {
-		display: none;
-	}
-}
-
-.slider {
-	display: flex;
-	overflow-x: scroll;
-	scroll-snap-type: x mandatory;
-	scroll-behavior: smooth;
-	width: 100%;
-}
-
-.slide {
-	flex: 0 0 33.33%;
-	scroll-snap-align: center;
-}
-
-.slide img {
-	width: 100%;
-	height: auto;
-	transition: transform 0.3s ease;
-}
-
-.slide img:hover {
-	transform: scale(1.2);
-}
-
-.slider-controls {
-	display: flex;
-	justify-content: center;
-	margin-top: 1rem;
-}
-
-.slider-controls button {
-	margin: 0 0.5rem;
-	padding: 0.5rem;
 }

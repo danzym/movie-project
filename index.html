@@ -10,21 +10,17 @@
 					integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 					crossorigin="anonymous"
 				/>
+				
 				<link rel="stylesheet" href="style.css" />
+				<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
 				<link
 					href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
 					rel="stylesheet"
 				/>
 				<style>
 					@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-					@media (max-width: 768px) {
-						.navbar-items {
-							display: none;
-						}
-						.navbar-toggle {
-							display: block;
-						}
-					}
+
 				</style>
 				<title>Movie</title>
 			</head>
@@ -43,17 +39,12 @@
 						<p class="mt-2 text-2xl text-center">Netflix</p>
 					</div>
 					<div class="flex items-center">
-						<button
-							id="navbar-toggle"
-							class="navbar-toggle text-white md:hidden"
-						>
-							<i class="fa fa-bars fa-lg"></i>
-						</button>
+				
 						<ul
 							id="navbar-items"
 							class="flex gap-16 mr-4 w-full text-2xl navbar-items"
 						>
-							<li class="cursor-pointer hover:underline w-full">Home</li>
+							<li id="home" class="cursor-pointer hover:underline w-full">Home</li>
 							<li class="cursor-pointer hover:underline w-full">Actors</li>
 							<li class="cursor-pointer hover:underline w-full">About</li>
 							<div id="genre-container" class="text-center">
@@ -73,6 +64,12 @@
 								placeholder="Search"
 							/>
 						</div>
+						<button
+						id="navbar-toggle"
+						class="navbar-toggle  md:hidden"
+					>
+						<i class="fa fa-bars fa-2xl"></i>
+					</button>
 					</div>
 				</nav>
 				<section class="HeroImage flex justify-center items-center font-Bebas">
@@ -89,7 +86,7 @@
 							</p>
 						</div>
 						<a
-							class="bg-red-600 hover:bg-red-700 text-white font-bold mt-3 py-2 px-5 rounded block text-center hover:scale-105 transform transition duration-500 ease-in-out hover:no-underline"
+							class="bg-red-600 hover:bg-red-700 text-white font-bold mt-3 py-2 px-5 mx-4 rounded block text-center hover:scale-105 transform transition duration-500 ease-in-out hover:no-underline"
 							href="https://www.netflix.com/"
 							target="_blank"
 						>
@@ -101,10 +98,10 @@
 				<div class="container"></div>
 
 				<div id="details" class="  text-white bg-gray-600">
-					<div class="slider-container  "></div>
+					<div class="slider-container "></div>
 					<div class="slider-controls ">
-						<button class="  text-white  rounded-2xl bg-red-600" onclick="prevSlide()">Prev</button>
-						<button class="  text-white rounded-2xl bg-red-600" onclick="nextSlide()">Next</button>
+						<button class="  text-white  rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="prevSlide()">Prev</button>
+						<button class="  text-white rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="nextSlide()">Next</button>
 					</div>
 				</div>
 				<script type="text/javascript" src="script.js"></script>

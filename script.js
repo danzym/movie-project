@@ -8,6 +8,11 @@ const autorun = async () => {
 	const movies = await fetchMovies();
 	renderMovies(movies.results);
 };
+document.addEventListener('click', async (event) => {
+	if (event.target.matches('#home')) {
+		await autorun(); // Replace with your function
+	}
+});
 
 const constructUrl = (path) => {
 	return `${TMDB_BASE_URL}/${path}?api_key=${atob(
@@ -61,8 +66,6 @@ const fetchGenres = async () => {
 		document.querySelectorAll('.genre-btn').forEach((button) => {
 			button.addEventListener('click', function () {
 				popover.style.display = 'none';
-				var navItems = document.querySelector('#navbar-items');
-				navItems.style.display = 'none';
 			});
 		});
 
@@ -151,8 +154,6 @@ document
 		document.querySelectorAll('.filter-btn').forEach((button) => {
 			button.addEventListener('click', function () {
 				popover.style.display = 'none';
-				var navItems = document.querySelector('#navbar-items');
-				navItems.style.display = 'none';
 			});
 		});
 
@@ -234,6 +235,7 @@ document
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
 	const sliderContainer = document.querySelector('.slider-container');
+	sliderContainer.innerHTML = '';
 	const slider = document.createElement('div');
 	slider.className = 'slider';
 
@@ -334,15 +336,28 @@ document.querySelector('#navbar-toggle').addEventListener('click', function () {
 });
 window.addEventListener('resize', function () {
 	var navItems = document.querySelector('#navbar-items');
+
 	if (window.innerWidth > 768) {
 		navItems.style.display = 'flex'; // set display to flex
 	} else {
 		navItems.style.display = 'none'; // set display to none
 	}
 });
-const prevSlide = () => {
+const getSlideWidth = () => {
+	let slidesToScroll = 1;
+	if (window.innerWidth >= 1024) {
+		slidesToScroll = 3;
+	} else if (window.innerWidth >= 768) {
+		slidesToScroll = 2;
+	}
 	const slider = document.querySelector('.slider');
-	const slideWidth = slider.scrollWidth / 6;
+	const totalSlides = slider.querySelectorAll('.slide').length;
+	return (slider.scrollWidth * slidesToScroll) / totalSlides;
+};
+
+const prevSlide = () => {
+	const slideWidth = getSlideWidth();
+	const slider = document.querySelector('.slider');
 	slider.scrollBy({
 		left: -slideWidth,
 		behavior: 'smooth',
@@ -350,8 +365,8 @@ const prevSlide = () => {
 };
 
 const nextSlide = () => {
+	const slideWidth = getSlideWidth();
 	const slider = document.querySelector('.slider');
-	const slideWidth = slider.scrollWidth / 6;
 	slider.scrollBy({
 		left: slideWidth,
 		behavior: 'smooth',
