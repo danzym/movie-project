@@ -64,6 +64,8 @@ const fetchGenres = async () => {
 		document.querySelectorAll('.genre-btn').forEach((button) => {
 			button.addEventListener('click', function () {
 				popover.style.display = 'none';
+				var navItems = document.querySelector('#navbar-items');
+				navItems.style.display = 'none';
 			});
 		});
 
@@ -105,6 +107,7 @@ document
 			const genreId = event.target.value;
 			const genreMovies = await fetchGenre(genreId);
 			CONTAINER.innerHTML = '';
+
 			renderMovies(genreMovies.results);
 			return genreMovies;
 		} else {
@@ -151,6 +154,8 @@ document
 		document.querySelectorAll('.filter-btn').forEach((button) => {
 			button.addEventListener('click', function () {
 				popover.style.display = 'none';
+				var navItems = document.querySelector('#navbar-items');
+				navItems.style.display = 'none';
 			});
 		});
 
@@ -169,15 +174,6 @@ document
 			}
 		}, 300);
 	});
-
-// document;
-// 	.querySelector('#filters')
-// 	.addEventListener('mouseout', function (event) {
-// 		const popover = document.querySelector('#filters-popover');
-// 		popover.style.display = 'none';
-// 	});
-
-// // Rest of your code...
 
 document
 	.querySelector('#filters')
@@ -279,3 +275,22 @@ const renderMovie = (movie) => {
 };
 
 document.addEventListener('DOMContentLoaded', autorun);
+// Add event listener for the hamburger menu
+// This function adjusts the layout based on the window width
+document.querySelector('#navbar-toggle').addEventListener('click', function () {
+	var navItems = document.querySelector('#navbar-items');
+	// Toggle the display of the navbar items when the toggle button is clicked
+	if (navItems.style.display === 'none') {
+		navItems.style.display = 'flex';
+	} else {
+		navItems.style.display = 'none';
+	}
+});
+window.addEventListener('resize', function () {
+	var navItems = document.querySelector('#navbar-items');
+	if (window.innerWidth > 768) {
+		navItems.style.display = 'flex'; // set display to flex
+	} else {
+		navItems.style.display = 'none'; // set display to none
+	}
+});

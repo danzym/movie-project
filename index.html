@@ -2,7 +2,13 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
+
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+		/>
+
 		<link
 			rel="stylesheet"
 			href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -21,64 +27,108 @@
 	</head>
 
 	<body>
-		<nav
-			class="flex bg-black justify-between sticky top-0 left-0 w-full z-10 text-white px-4 py-2 font-Bebas"
-		>
-			<div class="flex flex-col items-center">
-				<img
-					class="w-10 ml-4 mt-3"
-					src="./images/Netflix_2015_N_logo.svg.png"
-					alt="Netflix Logo"
+		<!DOCTYPE html>
+		<html>
+			<head>
+				<meta charset="UTF-8" />
+				<meta name="viewport" content="width=device-width,initial-scale=1" />
+				<link
+					rel="stylesheet"
+					href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+					integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+					crossorigin="anonymous"
 				/>
-				<p class="w-10 mt-2 ml-2 text-2xl">Netflix</p>
-			</div>
-			<div class="flex items-center">
-				<ul class="flex gap-16 mr-4 w-full text-2xl">
-					<li class="cursor-pointer w-12 hover:font-bold">Home</li>
-					<li class="cursor-pointer w-12 hover:font-bold">Actors</li>
-					<li class="cursor-pointer w-12 hover:font-bold">About</li>
-					<div id="genre-container">
-						<button id="genres">Genres</button>
-						<!-- genre popover will be appended here -->
-					</div>
-					<div id="filter-container">
-						<button id="filters">Filters</button>
-						<!-- popover will be appended here -->
-					</div>
-				</ul>
-				<div>
-					<input
-						id="search-movies-input"
-						class="rounded m-2 p-2 text-black"
-						type="text"
-						placeholder="Search"
-					/>
-				</div>
-			</div>
-		</nav>
+				<link rel="stylesheet" href="style.css" />
+				<link
+					href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+					rel="stylesheet"
+				/>
+				<style>
+					@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+					@media (max-width: 768px) {
+						.navbar-items {
+							display: none;
+						}
+						.navbar-toggle {
+							display: block;
+						}
+					}
+				</style>
+				<title>Movie</title>
+			</head>
 
-		<section class="HeroImage flex justify-center items-center font-Bebas">
-			<div class="layer"></div>
-			<div class="w-70 absolute text-center">
-				<p class="HeroMovie text-white font-bold text-5xl pb-3">
-					Unlimited movies, TV <br />
-					shows and more.
-				</p>
-				<div class="strangerOverview text-white text-center">
-					<p style="font-size: 17px">
-						Watch anywhere. Cancel anytime. <br />Ready to watch? Enter your
-						email to create or restart your membership.
-					</p>
-				</div>
-				<button
-					class="bg-red-600 hover:bg-red-600 text-white font-bold mt-3 py-2 px-5"
+			<body>
+				<nav
+					class="flex bg-black justify-between sticky top-0 left-0 w-full z-10 text-white px-4 py-2 font-Bebas"
 				>
-					Get Started
-				</button>
-			</div>
-		</section>
+					<div class="flex flex-col items-center justify-center mx-4">
+						<img
+							class="w-8 mt-3 text-center"
+							src="./images/Netflix_2015_N_logo.svg"
+							alt="Netflix Logo"
+						/>
+						<p class="mt-2 text-2xl text-center">Netflix</p>
+					</div>
+					<div class="flex items-center">
+						<button
+							id="navbar-toggle"
+							class="navbar-toggle text-white md:hidden"
+						>
+							<i class="fa fa-bars fa-lg"></i>
+						</button>
+						<ul
+							id="navbar-items"
+							class="flex gap-16 mr-4 w-full text-2xl navbar-items"
+						>
+							<li class="cursor-pointer w-12 hover:underline w-full">Home</li>
+							<li class="cursor-pointer w-12 hover:underline w-full">Actors</li>
+							<li class="cursor-pointer w-12 hover:underline w-full">About</li>
+							<div id="genre-container" class="text-center">
+								<button id="genres">Genres</button>
+								<!-- genre popover will be appended here -->
+							</div>
+							<div id="filter-container" class="text-center">
+								<button id="filters">Filters</button>
+								<!-- popover will be appended here -->
+							</div>
+						</ul>
+						<div>
+							<input
+								id="search-movies-input"
+								class="rounded m-2 p-2 text-black"
+								type="text"
+								placeholder="Search"
+							/>
+						</div>
+					</div>
+				</nav>
 
-		<div class="container"></div>
-		<script type="text/javascript" src="script.js"></script>
+				<section class="HeroImage flex justify-center items-center font-Bebas">
+					<div class="layer"></div>
+					<div class="w-70 text-center">
+						<p class="HeroMovie text-white font-bold text-5xl pb-3">
+							Unlimited movies, TV <br />
+							shows and more.
+						</p>
+						<div class="strangerOverview text-white text-center">
+							<p style="font-size: 17px">
+								Watch anywhere. Cancel anytime. <br />Ready to watch? Enter your
+								email to create or restart your membership.
+							</p>
+						</div>
+						<a
+							class="bg-red-600 hover:bg-red-700 text-white font-bold mt-3 py-2 px-5 rounded block text-center hover:scale-105 transform transition duration-500 ease-in-out hover:no-underline"
+							href="https://www.netflix.com/"
+							target="_blank"
+						>
+							Get Started
+						</a>
+					</div>
+				</section>
+
+				<div class="container"></div>
+				<script type="text/javascript" src="script.js"></script>
+			</body>
+		</html>
 	</body>
 </html>

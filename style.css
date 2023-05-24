@@ -43,7 +43,7 @@ body {
 #genres-popover {
 	position: absolute;
 	top: 40px;
-	left: 0;
+	left: 40%;
 	min-width: 150px;
 	height: object-fit;
 	z-index: 3;
@@ -52,7 +52,7 @@ body {
 #filters-popover {
 	position: absolute;
 	top: 40px;
-	left: 0;
+	left: 40%;
 	min-width: 150px;
 	height: object-fit;
 	z-index: 3;
@@ -69,4 +69,44 @@ body {
 }
 #filter-container {
 	position: relative;
+}
+
+/* General styles */
+#navbar-items {
+	display: flex;
+	flex-direction: row;
+	transition: all 0.5s ease;
+}
+
+/* Hide the navbar-items by default on small screens and show toggle button */
+@media (max-width: 768px) {
+	#navbar-items {
+		display: none;
+		flex-direction: column;
+		position: absolute;
+		top: 100%;
+		text-align: center;
+		left: 0;
+		width: 100%;
+		background-color: #000000;
+	}
+	#navbar-toggle {
+		display: block;
+	}
+}
+
+:hover.genre-btn,
+:hover.filter-btn {
+	text-decoration: underline;
+}
+
+/* Show the navbar-items and hide toggle button on large screens */
+@media (min-width: 769px) {
+	#navbar-items {
+		display: flex;
+		position: relative;
+	}
+	#navbar-toggle {
+		display: none;
+	}
 }
