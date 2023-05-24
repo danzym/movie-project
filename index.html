@@ -1,32 +1,4 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8" />
 
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-		/>
-
-		<link
-			rel="stylesheet"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-			integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-			crossorigin="anonymous"
-		/>
-		<link rel="stylesheet" href="style.css" />
-		<link
-			href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-			rel="stylesheet"
-		/>
-		<style>
-			@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-		</style>
-		<title>Movie</title>
-	</head>
-
-	<body>
 		<!DOCTYPE html>
 		<html>
 			<head>
@@ -57,6 +29,7 @@
 				<title>Movie</title>
 			</head>
 
+
 			<body>
 				<nav
 					class="flex bg-black justify-between sticky top-0 left-0 w-full z-10 text-white px-4 py-2 font-Bebas"
@@ -80,9 +53,9 @@
 							id="navbar-items"
 							class="flex gap-16 mr-4 w-full text-2xl navbar-items"
 						>
-							<li class="cursor-pointer w-12 hover:underline w-full">Home</li>
-							<li class="cursor-pointer w-12 hover:underline w-full">Actors</li>
-							<li class="cursor-pointer w-12 hover:underline w-full">About</li>
+							<li class="cursor-pointer hover:underline w-full">Home</li>
+							<li class="cursor-pointer hover:underline w-full">Actors</li>
+							<li class="cursor-pointer hover:underline w-full">About</li>
 							<div id="genre-container" class="text-center">
 								<button id="genres">Genres</button>
 								<!-- genre popover will be appended here -->
@@ -102,7 +75,6 @@
 						</div>
 					</div>
 				</nav>
-
 				<section class="HeroImage flex justify-center items-center font-Bebas">
 					<div class="layer"></div>
 					<div class="w-70 text-center">
@@ -127,8 +99,17 @@
 				</section>
 
 				<div class="container"></div>
+
+				<div id="details" class="  text-white bg-gray-600">
+					<div class="slider-container  "></div>
+					<div class="slider-controls ">
+						<button class="  text-white  rounded-2xl bg-red-600" onclick="prevSlide()">Prev</button>
+						<button class="  text-white rounded-2xl bg-red-600" onclick="nextSlide()">Next</button>
+					</div>
+				</div>
 				<script type="text/javascript" src="script.js"></script>
 			</body>
 		</html>
-	</body>
+		<!DOCTYPE html>
+
 </html>
