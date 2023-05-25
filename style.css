@@ -9,12 +9,9 @@ body {
 	width: 100%;
 }
 
-.container {
-	padding-top: 32px;
-}
-
 #actors {
 	margin: 24px 16px 0 0;
+	display: flex;
 }
 .HeroImage {
 	position: relative;
@@ -123,6 +120,9 @@ body {
 .slide img:hover {
 	transform: scale(1.05);
 }
+#details {
+	overflow: auto;
+}
 
 .slider-controls {
 	display: flex;
@@ -140,6 +140,53 @@ body {
 	text-decoration: underline;
 	transform: scale(1.05);
 }
+.loader {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(
+		0,
+		0,
+		0,
+		0.8
+	); /* Optional: This will darken the screen behind the spinner */
+	z-index: 9999; /* Optional: This ensures the loader appears above all other content */
+}
+
+.loader:before,
+.loader:after {
+	content: '';
+	border-radius: 50%;
+	position: absolute;
+	inset: 0;
+	box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3) inset;
+	width: 100px;
+	height: 100px;
+	margin: auto; /* This will center the spinner */
+}
+
+.loader:after {
+	box-shadow: 0 2px 0 #ff3d00 inset;
+	animation: rotate 2s linear infinite;
+	width: 100px;
+	height: 100px;
+	margin: auto; /* This will center the spinner */
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
 @media (min-width: 768px) {
 	.slide {
 		flex: 0 0 50%;
@@ -180,5 +227,8 @@ body {
 	}
 	#navbar-toggle {
 		display: block;
+	}
+	#actors {
+		flex-direction: column;
 	}
 }

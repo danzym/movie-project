@@ -6,11 +6,20 @@ const CONTAINER = document.querySelector('.container');
 
 const autorun = async () => {
 	const movies = await fetchMovies();
+	CONTAINER.innerHTML = '';
+
 	renderMovies(movies.results);
 };
 document.addEventListener('click', async (event) => {
 	if (event.target.matches('#home')) {
-		await autorun(); // Replace with your function
+		const navItems = document.querySelector('#navbar-items');
+
+		location.reload();
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+
+		if (window.innerWidth <= 768) {
+			navItems.style.display = 'none';
+		} // Replace with your function
 	}
 });
 
@@ -26,18 +35,39 @@ const movieDetails = async (movie) => {
 };
 
 const fetchMovies = async () => {
-	const url = constructUrl('movie/now_playing');
-	const response = await fetch(url);
-	const data = await response.json();
-	console.log(data);
-	return data;
+	try {
+		const url = constructUrl('movie/now_playing');
+		document.getElementById('loader').style.display = 'block';
+		const response = await fetch(url);
+		const data = await response.json();
+		setTimeout(() => {
+			document.getElementById('loader').style.display = 'none';
+		}, 1000);
+
+		console.log(data);
+		return data;
+	} catch (error) {
+		document.getElementById('loader').style.display = 'none';
+		console.log(error);
+	}
 };
 
 const fetchMovie = async (movieId) => {
-	const url = constructUrl(`movie/${movieId}`);
-	const res = await fetch(url);
+	try {
+		const url = constructUrl(`movie/${movieId}`);
+		document.getElementById('loader').style.display = 'block';
 
-	return res.json();
+		const res = await fetch(url);
+		const data = await res.json();
+		setTimeout(() => {
+			document.getElementById('loader').style.display = 'none';
+		}, 1000);
+		return data;
+	} catch (error) {
+		document.getElementById('loader').style.display = 'none';
+
+		console.log(error);
+	}
 };
 
 const fetchGenres = async () => {
@@ -66,6 +96,11 @@ const fetchGenres = async () => {
 		document.querySelectorAll('.genre-btn').forEach((button) => {
 			button.addEventListener('click', function () {
 				popover.style.display = 'none';
+
+				const navItems = document.querySelector('#navbar-items');
+				if (window.innerWidth <= 768) {
+					navItems.style.display = 'none';
+				}
 			});
 		});
 
@@ -106,9 +141,24 @@ document
 		if (event.target.className === 'genre-btn') {
 			const genreId = event.target.value;
 			const genreMovies = await fetchGenre(genreId);
+			const navItems = document.querySelector('#navbar-items');
+
+			if (window.innerWidth <= 768) {
+				navItems.style.display = 'none';
+			}
 			CONTAINER.innerHTML = '';
+			const details = document.querySelector('#details');
+			details.innerHTML = `			<div class="slider-container "></div>
+			<div class="slider-controls ">
+				<button class="  text-white  rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="prevSlide()">Prev</button>
+				<button class="  text-white rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="nextSlide()">Next</button>
+			</div>`;
 
 			renderMovies(genreMovies.results);
+			document
+				.querySelector('#details')
+				.scrollIntoView({ block: 'end', behavior: 'smooth' });
+
 			return genreMovies;
 		} else {
 			return;
@@ -119,11 +169,16 @@ const fetchGenre = async (genreId) => {
 		const url = `${TMDB_BASE_URL}/discover/movie?api_key=${atob(
 			'NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI='
 		)}&with_genres=${genreId}`;
+		document.getElementById('loader').style.display = 'block';
 		const res = await fetch(url);
 		const data = await res.json();
+		setTimeout(() => {
+			document.getElementById('loader').style.display = 'none';
+		}, 1000);
 		return data;
 	} catch (error) {
 		console.log(error);
+		document.getElementById('loader').style.display = 'none';
 	}
 };
 
@@ -154,6 +209,9 @@ document
 		document.querySelectorAll('.filter-btn').forEach((button) => {
 			button.addEventListener('click', function () {
 				popover.style.display = 'none';
+				document
+					.querySelector('#details')
+					.scrollIntoView({ block: 'end', behavior: 'smooth' });
 			});
 		});
 
@@ -181,6 +239,12 @@ document
 			const filteredMovies = await fetchMoviesByFilterType(filterType);
 			// Remove existing movies and display new ones
 			CONTAINER.innerHTML = '';
+			const details = document.querySelector('#details');
+			details.innerHTML = `			<div class="slider-container "></div>
+			<div class="slider-controls ">
+				<button class="  text-white  rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="prevSlide()">Prev</button>
+				<button class="  text-white rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="nextSlide()">Next</button>
+			</div>`;
 			renderMovies(filteredMovies.results);
 		}
 	});
@@ -188,10 +252,15 @@ document
 const fetchMoviesByFilterType = async (filterType) => {
 	try {
 		const url = constructUrl(`movie/${filterType}`);
+		document.getElementById('loader').style.display = 'block';
 		const res = await fetch(url);
 		const data = await res.json();
+		setTimeout(() => {
+			document.getElementById('loader').style.display = 'none';
+		}, 1000);
 		return data;
 	} catch (error) {
+		document.getElementById('loader').style.display = 'none';
 		console.log(error);
 	}
 };
@@ -206,12 +275,20 @@ const constructSearchUrl = (query) => {
 const searchMovies = async (query) => {
 	try {
 		const url = constructSearchUrl(query);
+		document.getElementById('loader').style.display = 'block';
 		const res = await fetch(url);
 		const data = await res.json();
+		if (query.length < 1) {
+			window.location.reload();
+		}
 		renderMovies(data.results);
+		setTimeout(() => {
+			document.getElementById('loader').style.display = 'none';
+		}, 200);
 		return data;
 		// render the search results
 	} catch (error) {
+		document.getElementById('loader').style.display = 'none';
 		console.log(error);
 	}
 };
@@ -225,10 +302,15 @@ document
 		const filteredMovies = searchResults?.results?.filter((movie) => {
 			return movie.media_type == 'movie';
 		});
-		console.log(filteredMovies);
 
 		// Remove existing movies and display new ones
 		CONTAINER.innerHTML = '';
+		const details = document.querySelector('#details');
+		details.innerHTML = `			<div class="slider-container "></div>
+		<div class="slider-controls ">
+			<button class="  text-white  rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="prevSlide()">Prev</button>
+			<button class="  text-white rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="nextSlide()">Next</button>
+		</div>`;
 		renderMovies(filteredMovies);
 	});
 
@@ -245,6 +327,8 @@ const renderMovies = (movies) => {
 
 		const img = document.createElement('img');
 		img.src = BACKDROP_BASE_URL + movie.backdrop_path;
+		img.classList.add('cursor-pointer');
+
 		img.alt = movie.title;
 
 		slide.appendChild(img);
@@ -260,15 +344,15 @@ const renderMovies = (movies) => {
 
 const renderMovie = async (movie) => {
 	const movieCrew = await fetch(
-		` https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=${atob(
+		` https://api.themoviedb.org/3/movie/${movie?.id}/credits?api_key=${atob(
 			'NGViNmRiNGQ1MjBmOGNkNWYzZWY4Y2JjZjU5ZTZhMDI='
 		)}`
 	);
-	const crew = await movieCrew.json();
+	const crew = await movieCrew?.json();
 	console.log(crew);
-	const directorName = crew.crew[0].name;
-	const actorsName = crew.cast.map((actor) => actor.name);
-	const actorsImage = crew.cast.map((actImage) => actImage?.profile_path);
+	const directorName = crew?.crew[0]?.name;
+	const actorsName = crew?.cast?.map((actor) => actor.name);
+	const actorsImage = crew?.cast?.map((actImage) => actImage?.profile_path);
 	console.log(actorsImage);
 
 	const fetchMovie = await fetch(
@@ -277,13 +361,13 @@ const renderMovie = async (movie) => {
 		)}`
 	);
 	const movieTrailer = await fetchMovie.json();
-	const trailer = movieTrailer.results[0].key;
+	const trailer = movieTrailer?.results[0]?.key;
 
 	const renderDetails = document.getElementById('details');
 	renderDetails.innerHTML = `
     <div class="row">
         <div class="col-md-4">
-            <img id="movie-backdrop" src="${
+            <img id="movie-backdrop " src="${
 							BACKDROP_BASE_URL + movie.backdrop_path
 						}">
         </div>
@@ -330,6 +414,7 @@ document.querySelector('#navbar-toggle').addEventListener('click', function () {
 	// Toggle the display of the navbar items when the toggle button is clicked
 	if (navItems.style.display === 'none') {
 		navItems.style.display = 'flex';
+		navItems.style.flexDirection = 'column-reverse';
 	} else {
 		navItems.style.display = 'none';
 	}
@@ -372,7 +457,5 @@ const nextSlide = () => {
 		behavior: 'smooth',
 	});
 };
-
-renderMovie();
 
 document.addEventListener('DOMContentLoaded', autorun);
