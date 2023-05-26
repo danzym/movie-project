@@ -14,12 +14,14 @@ document.addEventListener('click', async (event) => {
 	if (event.target.matches('#home')) {
 		const navItems = document.querySelector('#navbar-items');
 
-		location.reload();
 		window.scrollTo({ top: 0, behavior: 'smooth' });
+		// navItems.scrollIntoView({ block: 'end', behavior: 'smooth' });
 
 		if (window.innerWidth <= 768) {
 			navItems.style.display = 'none';
 		} // Replace with your function
+
+		location.reload();
 	}
 });
 
@@ -240,13 +242,18 @@ document
 			// Remove existing movies and display new ones
 			CONTAINER.innerHTML = '';
 			const details = document.querySelector('#details');
+			const navItems = document.querySelector('#navbar-items');
+			if (window.innerWidth <= 768) {
+				navItems.style.display = 'none';
+			}
 			details.innerHTML = `			<div class="slider-container "></div>
 			<div class="slider-controls ">
 				<button class="  text-white  rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="prevSlide()">Prev</button>
 				<button class="  text-white rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="nextSlide()">Next</button>
 			</div>`;
 			renderMovies(filteredMovies.results);
-		}
+			details.scrollIntoView({ block: 'end', behavior: 'smooth' });
+		} else return;
 	});
 
 const fetchMoviesByFilterType = async (filterType) => {
@@ -311,7 +318,9 @@ document
 			<button class="  text-white  rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="prevSlide()">Prev</button>
 			<button class="  text-white rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="nextSlide()">Next</button>
 		</div>`;
+
 		renderMovies(filteredMovies);
+		details.scrollIntoView({ block: 'end', behavior: 'smooth' });
 	});
 
 // You'll need to play with this function in order to add features and enhance the style.
@@ -365,43 +374,78 @@ const renderMovie = async (movie) => {
 
 	const renderDetails = document.getElementById('details');
 	renderDetails.innerHTML = `
-    <div class="row">
-        <div class="col-md-4">
-            <img id="movie-backdrop " src="${
-							BACKDROP_BASE_URL + movie.backdrop_path
-						}">
-        </div>
-        <div class="col-md-8">
-            <h2 id="movie-title">${movie.title}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${
+  <div class="flex flex-col gap-4 px-6 bg-black">
+    <div>
+        <img class='w-full' id="movie-backdrop" src="${
+					BACKDROP_BASE_URL + movie.backdrop_path
+				}">
+    </div>
+
+    <div class='grid grid-cols-12  gap-4 w-full  '>       
+        <div class=" lg:col-span-6 md:col-span-4 col-span-12  gap-4">
+            <h2 class='font-bold text-red-600 text-3xl mb-6' id="movie-title">${
+							movie.title
+						}</h2>
+            <p id="movie-release-date"><b class='text-red-600'>Release Date:</b> ${
 							movie.release_date
 						}</p>
-            <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
-            <h3>Overview:</h3>
-            <p id="movie-overview">${movie.overview}</p>
-            <h2>Vote average: </h2>
-            <p>${movie.vote_average} </p>
-            <h2>Language: </h2>
-            <p> ${movie.original_language} </p>
-            <h2> Director: </h2>
+            <p id="movie-runtime"><b class='text-red-600'>Runtime:</b> ${
+							movie.runtime
+						} Minutes</p>
+            <h3 class='font-bold text-red-600'>Overview:</h3>
+            <p class='w-full ' id="movie-overview">${movie.overview}</p>
+            <h2 class='font-bold text-red-600'>Vote average: </h2>
+            <p>${movie.vote_average}</p>
+            <h2 class='font-bold text-red-600'>Language: </h2>
+            <p>${movie.original_language}</p>
+            <h2 class='font-bold text-red-600'>Director: </h2>
             <p>${directorName}</p>
-            <h3>Trailer:</h3>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/${trailer}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <div class='w-full lg:col-span-6 col-span-12 md:col-span-8 h-full gap-4'>
+            <h3 class='mb-6 font-bold text-red-600 '>Trailer:</h3>
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${trailer}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
-    <h3>Actors:</h3>
-    <ul id="actors" class="list-unstyled"></ul>
+</div>
+
+<div class=' flex flex-col justify-center items-center w-full bg-black pt-12'>   
+    <h3 class='text-center text-2xl text-white font-bold'>Actors</h3>
+    <ul class='gap-2  flex flex-start items-center' id="actors" class="list-unstyled"></ul>
+</div>
+
+
+ 
 `;
 
 	const actorsList = document.getElementById('actors');
 	actorsName.slice(0, 5).forEach((actorName, index) => {
 		const listItem = document.createElement('li');
 		listItem.textContent = actorName;
+
 		actorsList.appendChild(listItem);
 
 		const imageContainer = document.createElement('img');
+		imageContainer.classList.add('rounded-full');
 		const srcValue = BACKDROP_BASE_URL + actorsImage[index]; // Access each source value from the actorsImage array based on the current index
 		imageContainer.setAttribute('src', srcValue);
+		listItem.classList.add(
+			'flex',
+			'flex-col',
+			'justify-center',
+			'items-center',
+			'gap-2',
+			'mx-4',
+			'bg-black',
+			'text-white',
+			'p-4',
+			'rounded-md',
+			'hover:drop-shadow-md',
+			'hover:bg-red-800',
+			'bg-red-600',
+			'cursor-pointer',
+			'actor'
+		);
 		listItem.appendChild(imageContainer);
 	});
 };
@@ -424,6 +468,7 @@ window.addEventListener('resize', function () {
 
 	if (window.innerWidth > 768) {
 		navItems.style.display = 'flex'; // set display to flex
+		navItems.style.flexDirection = 'row'; // set flex direction to row
 	} else {
 		navItems.style.display = 'none'; // set display to none
 	}
