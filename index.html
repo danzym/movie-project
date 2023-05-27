@@ -1,95 +1,109 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<link
-			rel="stylesheet"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-			integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-			crossorigin="anonymous"
-		/>
-		<link rel="stylesheet" href="style.css" />
-		<link
-			href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-			rel="stylesheet"
-		/>
-		<style>
-			@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-		</style>
-		<title>Movie</title>
-	</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+    </style>
+    <title>Movie</title>
+  </head>
 
-	<body class="bg-black">
-		<nav
-			class="flex bg-black justify-between sticky top-0 left-0 w-full z-10 text-white px-4 py-2 font-Bebas"
-		>
-			<div class="flex flex-col items-center">
-				<img
-					class="w-10 ml-4 mt-3"
-					src="./images/Netflix_2015_N_logo.svg.png"
-					alt="Netflix Logo"
-				/>
-				<p class="w-10 mt-2 ml-2 text-2xl">Netflix</p>
-			</div>
-			<div class="flex items-center">
-				<ul class="flex gap-16 mr-4 w-full text-2xl">
-					<li class="cursor-pointer w-12 hover:font-bold">Home</li>
-					<li class="cursor-pointer w-12 hover:font-bold">Actors</li>
-					<li class="cursor-pointer w-12 hover:font-bold">About</li>
-					<div id="genre-container">
-						<button id="genres">Genres</button>
-						<!-- genre popover will be appended here -->
-					</div>
-					<div id="filter-container">
-						<button id="filters">Filters</button>
-						<!-- popover will be appended here -->
-					</div>
-				</ul>
-				<div>
-					<input
-						id="search-movies-input"
-						class="rounded m-2 p-2 text-black"
-						type="text"
-						placeholder="Search"
-					/>
-				</div>
-			</div>
-		</nav>
-
-		<section class="HeroImage flex justify-center items-center font-Bebas">
-			<div class="layer"></div>
-			<div class="w-70 absolute text-center">
-				<p class="HeroMovie text-white font-bold text-5xl pb-3">
-					Unlimited movies, TV <br />
-					shows and more.
-				</p>
-				<div class="strangerOverview text-white text-center">
-					<p style="font-size: 17px">
-						Watch anywhere. Cancel anytime. <br />Ready to watch? Enter your
-						email to create or restart your membership.
-					</p>
-				</div>
-				<button
-					class="bg-red-600 hover:bg-red-600 text-white font-bold mt-3 py-2 px-5"
-				>
-					Get Started
-				</button>
-			</div>
-		</section>
-
-     <div id="details" class="text-white bg-black">
-      <div class="slider-container">
-      <div class="slider-controls ">
-        <button class="prev-button text-white rounded  outline-none focus:outline-none" onclick="prevSlide()">&#60;</button>
-        <button class="next-button text-white rounded  outline-none focus:outline-none" onclick="nextSlide()">&#62;</button>
+  <body class="bg-black">
+    <nav
+      class="flex bg-black justify-between sticky top-0 left-0 w-full z-10 text-white px-4 py-2 font-Bebas"
+    >
+      <div class="flex flex-col items-center">
+        <img
+          class="w-10 ml-4 mt-3"
+          src="./images/Netflix_2015_N_logo.svg.png"
+          alt="Netflix Logo"
+        />
+        <p class="w-10 mt-2 ml-2 text-2xl">Netflix</p>
       </div>
-	</div>
+      <div class="flex items-center">
+        <ul class="flex gap-16 mr-4 w-full text-2xl">
+          <div id="home-container">
+            <button id="home" onclick="goToHomePage()">Home</button>
+          </div>
+
+          <div id="actorsList-container">
+            <button id="actorsList">Actors</button>
+            <!-- actors will be appended here -->
+          </div>
+          <!-- <li class="cursor-pointer w-12 hover:font-bold">Actors</li> -->
+          <li class="cursor-pointer w-12 hover:font-bold">About</li>
+          <div id="genre-container">
+            <button id="genres">Genres</button>
+            <!-- genre popover will be appended here -->
+          </div>
+          <div id="filter-container">
+            <button id="filters">Filters</button>
+            <!-- popover will be appended here -->
+          </div>
+        </ul>
+        <div>
+          <input
+            id="search-movies-input"
+            class="rounded m-2 p-2 text-black"
+            type="text"
+            placeholder="Search"
+          />
+        </div>
+      </div>
+    </nav>
+
+    <section class="HeroImage flex justify-center items-center font-Bebas">
+      <div class="layer"></div>
+      <div class="w-70 absolute text-center">
+        <p class="HeroMovie text-white font-bold text-5xl pb-3">
+          Unlimited movies, TV <br />
+          shows and more.
+        </p>
+        <div class="strangerOverview text-white text-center">
+          <p style="font-size: 17px">
+            Watch anywhere. Cancel anytime. <br />Ready to watch? Enter your
+            email to create or restart your membership.
+          </p>
+        </div>
+        <button
+          class="bg-red-600 hover:bg-red-600 text-white font-bold mt-3 py-2 px-5"
+        >
+          Get Started
+        </button>
+      </div>
+    </section>
+
+    <div id="details" class="text-white bg-black">
+      <div class="slider-container">
+        <div class="slider-controls">
+          <button
+            class="prev-button text-white rounded outline-none focus:outline-none"
+            onclick="prevSlide()"
+          >
+            &#60;
+          </button>
+          <button
+            class="next-button text-white rounded outline-none focus:outline-none"
+            onclick="nextSlide()"
+          >
+            &#62;
+          </button>
+        </div>
+      </div>
     </div>
-
-</body>
-
-		<div class="container"></div>
-		<script type="text/javascript" src="script.js"></script>
-	</body>
+    <div class="container"></div>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
 </html>
