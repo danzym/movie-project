@@ -12,6 +12,7 @@ body {
 #actors {
 	margin: 24px 16px 0 0;
 	display: flex;
+	background-color: #000000;
 }
 
 :hover.actor {
@@ -91,10 +92,10 @@ body {
 	display: none;
 }
 
-:hover.genre-btn,
+/* :hover.genre-btn,
 :hover.filter-btn {
 	text-decoration: underline;
-}
+} */
 
 /* Show the navbar-items and hide toggle button on large screens */
 
@@ -253,5 +254,6 @@ button {
 }
 button:hover {
 	color: red;
+	text-decoration: underline;
 }
 /*Slider for movies */

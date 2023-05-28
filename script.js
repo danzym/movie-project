@@ -3,12 +3,15 @@ const PROFILE_BASE_URL = 'http://image.tmdb.org/t/p/w185';
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 const BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w780';
 const CONTAINER = document.querySelector('.container');
+const DETAIL = document.querySelector('#details');
 
 const autorun = async () => {
 	const movies = await fetchMovies();
 	CONTAINER.innerHTML = '';
+	// DETAIL.innerHTML = '';
 
 	renderMovies(movies.results);
+	fetchActorsPage();
 };
 document.addEventListener('click', async (event) => {
 	if (event.target.matches('#home')) {
@@ -126,11 +129,13 @@ const fetchActorsPage = async () => {
 	actorsLink.addEventListener('click', (e) => {
 		e.preventDefault();
 		fetchActorBy('popular').then((actorResults) => {
-			renderActors(actorResults.results);
+			DETAIL.innerHTML = '';
+			DETAIL.innerHTML = '';
+			return renderActors(actorResults.results);
 		});
 	});
 };
-fetchActorsPage();
+
 //end actor-page part
 
 const genreContainer = document.querySelector('#genre-container');
@@ -573,9 +578,9 @@ const renderActors = (actors) => {
 };
 // end of actor-page part
 // home button part
-function goToHomePage() {
-	window.location.href = 'index.html';
-}
+// function goToHomePage() {
+// 	window.location.href = 'index.html';
+// }
 // end of home button part
 const prevSlide = () => {
 	const slideWidth = getSlideWidth();
