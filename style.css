@@ -42,6 +42,7 @@ body {
 	position: relative;
 	z-index: 2;
 }
+/* genres and filter styling */
 #genres-popover {
 	position: absolute;
 	top: 40px;
@@ -108,7 +109,6 @@ body {
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 }
-
 .slide {
 	flex: 0 0 100%;
 	scroll-snap-align: center;
@@ -237,3 +237,21 @@ body {
 		flex-direction: column;
 	}
 }
+
+.prev-button {
+	left: 0;
+}
+
+.next-button {
+	right: 0;
+}
+button:focus {
+	outline: none;
+}
+button {
+	transition: color 0.3s ease;
+}
+button:hover {
+	color: red;
+}
+/*Slider for movies */

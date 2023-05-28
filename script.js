@@ -112,6 +112,27 @@ const fetchGenres = async () => {
 		console.log(error);
 	}
 };
+
+//actor-page part - fetch and render actors in navbar
+const fetchActorBy = async (path) => {
+	const url = constructUrl(`person/${path}`);
+	const res = await fetch(url);
+	const actorResults = await res.json();
+	return actorResults;
+};
+
+const fetchActorsPage = async () => {
+	const actorsLink = document.getElementById('actorsList');
+	actorsLink.addEventListener('click', (e) => {
+		e.preventDefault();
+		fetchActorBy('popular').then((actorResults) => {
+			renderActors(actorResults.results);
+		});
+	});
+};
+fetchActorsPage();
+//end actor-page part
+
 const genreContainer = document.querySelector('#genre-container');
 
 genreContainer.addEventListener('mouseover', async function (event) {
@@ -485,6 +506,77 @@ const getSlideWidth = () => {
 	return (slider.scrollWidth * slidesToScroll) / totalSlides;
 };
 
+//actor-page part
+const fetchActorByID = async (actor) => {
+	const actors = await fetchActorBy(actor.id);
+	if (actor.id == actors.id) {
+		CONTAINER.innerHTML = '';
+		CONTAINER.className = '';
+		CONTAINER.className = 'container actorPage my-5 p-5';
+		CONTAINER.innerHTML = `
+      <div class="row">
+      <div class="col-md-4 text-white">
+      <h1>${actor.name}</h1>
+      <img class="img-fluid" src="${BACKDROP_BASE_URL + actor.profile_path}" />
+      <p><b>Gender:</b>${actor.gender === 2 ? 'Male' : 'Female'}</p>
+      <p><b>Birthdate:</b>${actors.birthday}</p>
+      <p><b>Deathdate:</b>${actors.deathday ? actors.deathday : 'Unknown'}</p>
+      <p><b>Popularity:</b>${
+				actors.popularity ? actors.popularity : 'Unknown'
+			}</p>
+      </div>
+      <div class="col-md-8 mt-5 text-white">
+      <h3>Biograpy:</h3><p>${
+				actors.biography ? actors.biography : 'Unknown'
+			}</p>
+      <h3>${actor.name}'s Other Works:</h3><ul id="actor-movie-list"></ul>
+			</div>
+      </div>
+`;
+		const actorOtherWorks = document.getElementById('actor-movie-list');
+		actor.known_for.forEach((movies) => {
+			const eachMovie = document.createElement('a');
+			eachMovie.setAttribute('href', '#');
+			eachMovie.innerHTML = `<li> ${movies.title} </li>`;
+			actorOtherWorks.appendChild(eachMovie);
+			eachMovie.addEventListener('click', () => {
+				movieDetails(movies);
+			});
+		});
+	}
+};
+
+const renderActors = (actors) => {
+	CONTAINER.innerHTML = '';
+	CONTAINER.className = '';
+	CONTAINER.className = 'row mx-auto justify-content-center';
+	actors.forEach((actor) => {
+		const actorDiv = document.createElement('div');
+		actorDiv.className =
+			'card col-10 col-sm-4 col-md-4 col-xl-3  px-2 pt-4 m-5';
+		actorDiv.style.width = '20rem';
+		actorDiv.innerHTML = `
+      <a class="actor-div" href="#">
+     <h3 class="text-center text-xl text-red-700 font-semibold">${
+				actor.name
+			}</h3>
+     <img class="card-img-top img-fluid p-2 mb-2 hover:underline" src="${
+				PROFILE_BASE_URL + actor.profile_path
+			}" class="img-fluid p-2 mb-2 rounded" alt="Card image cap">
+      </a>
+    `;
+		actorDiv.addEventListener('click', () => {
+			fetchActorByID(actor);
+		});
+		CONTAINER.appendChild(actorDiv);
+	});
+};
+// end of actor-page part
+// home button part
+function goToHomePage() {
+	window.location.href = 'index.html';
+}
+// end of home button part
 const prevSlide = () => {
 	const slideWidth = getSlideWidth();
 	const slider = document.querySelector('.slider');
