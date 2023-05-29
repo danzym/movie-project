@@ -410,7 +410,7 @@ const renderMovie = async (movie) => {
 	);
 	const movieTrailer = await fetchMovie.json();
 	const trailer = movieTrailer?.results[0]?.key;
-
+	CONTAINER.innerHTML = '';
 	const renderDetails = document.getElementById('details');
 
 	renderDetails.innerHTML = `
@@ -460,6 +460,7 @@ const renderMovie = async (movie) => {
 `;
 
 	const actorsList = document.getElementById('actors');
+
 	actorId.slice(0, 5).forEach((actor, index) => {
 		console.log(actor);
 		const listItem = document.createElement('li');
@@ -490,13 +491,24 @@ const renderMovie = async (movie) => {
 		);
 		listItem.appendChild(imageContainer);
 		listItem.addEventListener('click', async () => {
+			document.getElementById('loader').style.display = 'block';
 			// Call the actorDetails function when the list item is clicked
 			DETAIL.innerHTML = '';
 			CONTAINER.innerHTML = '';
+			console.log('renderMovie', actor);
+			// const actorList = document.querySelector('#actor-movie-list');
+			// actorList.innerHTML = '';
+			const actorsFullList = await fetchActorBy(popular);
+
+			const findActor = actorsFullList.find((actor) => actor.id === actor.id);
+			console.log(findActor);
 			await fetchActorByID(actor);
+			setTimeout(() => {
+				document.getElementById('loader').style.display = 'none';
+			}, 1000);
 		});
 	});
-	// renderMovies(similarMovies?.results);
+
 	const getSimilarMovies = await fetch(
 		`https://api.themoviedb.org/3/movie/${movie?.id}/similar?api_key=${atob(
 			'NGViNmRiNGQ1MjBmOGNkNWYzZWY4Y2JjZjU5ZTZhMDI='
@@ -534,10 +546,14 @@ const renderMovie = async (movie) => {
 		listItem.appendChild(imageContainer);
 		listItem.addEventListener('click', async () => {
 			// Call the actorDetails function when the list item is clicked
+			document.getElementById('loader').style.display = 'block';
 			DETAIL.innerHTML = '';
 			CONTAINER.innerHTML = '';
 			await renderMovie(movie);
 		});
+		setTimeout(() => {
+			document.getElementById('loader').style.display = 'none';
+		}, 1000);
 	});
 };
 
@@ -578,9 +594,10 @@ const getSlideWidth = () => {
 
 //actor-page part
 const fetchActorByID = async (actor) => {
+	console.log('fetchActorByID', actor);
 	const actors = await fetchActorBy(actor?.id);
+	console.log('fetchActorByIDactors', actors);
 	if (actor && actor.id == actors?.id) {
-		CONTAINER.innerHTML = '';
 		CONTAINER.className = '';
 		CONTAINER.className = 'container actorPage  my-5 p-5';
 		CONTAINER.innerHTML = `
@@ -603,8 +620,9 @@ const fetchActorByID = async (actor) => {
 			</div>
       </div>
 		`;
+
 		const actorOtherWorks = document.getElementById('actor-movie-list');
-		console.log('actor', actor);
+		console.log('actors', actors);
 		actor?.known_for?.forEach((movies) => {
 			const eachMovie = document.createElement('a');
 			eachMovie.setAttribute('href', '#');
