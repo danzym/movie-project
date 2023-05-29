@@ -665,6 +665,22 @@ const renderActors = (actors) => {
 	});
 };
 // end of actor-page part
+const about = () => {
+	const aboutPage = document.getElementById('about');
+	aboutPage.addEventListener('click', () => {
+		CONTAINER.innerHTML = '';
+		CONTAINER.className = '';
+		CONTAINER.className = 'container aboutPage my-5 p-5';
+		CONTAINER.innerHTML = `
+    <div class="text-center">
+    <img src="netflix.gif" alt="gif netflix logo" class="mx-auto">
+    <h1><b>Re:Coded Production</b></h1>
+    <p>Some info about project and team members</p>
+    </div>
+    `;
+	});
+};
+about();
 // home button part
 // function goToHomePage() {
 // 	window.location.href = 'index.html';
