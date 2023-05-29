@@ -397,7 +397,8 @@ const renderMovie = async (movie) => {
 		)}`
 	);
 	const crew = await movieCrew?.json();
-	console.log(crew);
+	console.log('movie', movie);
+	const productionCompany = movie?.production_companies[0];
 	const directorName = crew?.crew[0]?.name;
 	const actorsName = crew?.cast?.map((actor) => actor.name);
 	const actorsImage = crew?.cast?.map((actImage) => actImage?.profile_path);
@@ -449,12 +450,24 @@ const renderMovie = async (movie) => {
     </div>
 </div>
 
-<div class=' flex flex-col justify-center items-center w-full bg-black pt-12'>   
+<div class=' flex flex-col justify-center items-center w-full bg-transparent pt-12'>   
     <h3 class='text-center text-2xl text-red-600 font-bold'>Actors</h3>
     <ul class='gap-2  flex flex-start items-center' id="actors" class="list-unstyled"></ul>
 		<h3 class='text-center text-2xl text-red-600 font-bold'>Similar Movies</h3>
 
 		<ul class='gap-2  flex flex-start items-center' id="similar-movie" class="list-unstyled"></ul>
+
+		<div class=' flex flex-col justify-center items-center w-full bg-black pt-12'>
+		<h2 class='text-center text-2xl text-red-600 font-bold'>Production Company</h2>
+		<h3 class='text-center text-2xl text-white font-bold'>${
+			productionCompany?.name
+		}</h3>
+		<div class='flex justify-center items-center'>
+		<img  class='w-12' id="movie-backdrop" src="${
+			BACKDROP_BASE_URL + productionCompany?.logo_path
+		}">
+		</div>
+
 
 </div> 
 `;

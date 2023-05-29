@@ -2,7 +2,7 @@ body {
 	font-family: 'Bebas Neue', sans-serif;
 	min-height: 100vh;
 	position: relative;
-	padding-bottom: 120px;
+	padding-bottom: 140px;
 	background-color: #000000;
 }
 .font-Bebas {
@@ -16,6 +16,9 @@ footer {
 	left: 0;
 }
 
+#filters {
+	color: white;
+}
 #movie-backdrop {
 	width: 100%;
 }
