@@ -146,4 +146,8 @@ button {
 button:hover {
   color: red;
 }
+.aboutPage {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+}
 /*Slider for movies */

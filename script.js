@@ -352,6 +352,30 @@ const renderMovie = async (movie) => {
     imageContainer.setAttribute("src", srcValue);
     listItem.appendChild(imageContainer);
   });
+
+  const renderActors = (actors) => {
+    CONTAINER.innerHTML = "";
+    const actorsContainer = document.createElement("div");
+    actorsContainer.setAttribute("class", "actorsPage");
+    actors.map((actor) => {
+      const actorDiv = document.createElement("div");
+      actorDiv.innerHTML = `
+        <img class="actorsImages" src="${
+          PROFILE_BASE_URL + actor.profile_path
+        }" alt="${
+        actor.name
+      } poster"><div class="actorsCards"><p class="info" id="actorsNames">${
+        actor.name
+      }</p></div>`;
+
+      actorDiv.addEventListener("click", () => {
+        actorDetails(actor);
+      });
+
+      actorsContainer.appendChild(actorDiv);
+      CONTAINER.appendChild(actorsContainer);
+    });
+  };
 };
 
 //actor-page part
@@ -364,7 +388,7 @@ const fetchActorByID = async (actor) => {
     CONTAINER.innerHTML = `
       <div class="row">
       <div class="col-md-4 text-white">
-      <h1>${actor.name}</h1>
+      <h1><b>${actor.name}</b></h1>
       <img class="img-fluid" src="${BACKDROP_BASE_URL + actor.profile_path}" />
       <p><b>Gender:</b>${actor.gender === 2 ? "Male" : "Female"}</p>
       <p><b>Birthdate:</b>${actors.birthday}</p>
@@ -374,10 +398,12 @@ const fetchActorByID = async (actor) => {
       }</p>
       </div>
       <div class="col-md-8 mt-5 text-white">
-      <h3>Biograpy:</h3><p>${
+      <h3><b>Biograpy:</b></h3><p>${
         actors.biography ? actors.biography : "Unknown"
-      }</p>
-      <h3>${actor.name}'s Other Works:</h3><ul id="actor-movie-list"></ul>
+      }</p><br>
+      <h3><b>${
+        actor.name
+      }'s Other Works:</h3></b><ul id="actor-movie-list"></ul>
 			</div>
       </div>
 `;
@@ -401,14 +427,14 @@ const renderActors = (actors) => {
   actors.forEach((actor) => {
     const actorDiv = document.createElement("div");
     actorDiv.className =
-      "card col-10 col-sm-4 col-md-4 col-xl-3  px-2 pt-4 m-5";
+      "card col-10 col-sm-4 col-md-4 col-xl-3  px-2 pt-2 m-5 bg-white rounded";
     actorDiv.style.width = "20rem";
     actorDiv.innerHTML = `
       <a class="actor-div" href="#">
      <h3 class="text-center text-xl text-red-700 font-semibold">${
        actor.name
      }</h3>
-     <img class="card-img-top img-fluid p-2 mb-2 hover:underline" src="${
+     <img class="card-img-top img-fluid p-2 mb-2 rounded" src="${
        PROFILE_BASE_URL + actor.profile_path
      }" class="img-fluid p-2 mb-2 rounded" alt="Card image cap">
       </a>
@@ -420,6 +446,22 @@ const renderActors = (actors) => {
   });
 };
 // end of actor-page part
+const about = () => {
+  const aboutPage = document.getElementById("about");
+  aboutPage.addEventListener("click", () => {
+    CONTAINER.innerHTML = "";
+    CONTAINER.className = "";
+    CONTAINER.className = "container aboutPage my-5 p-5";
+    CONTAINER.innerHTML = `
+    <div class="text-center">
+    <img src="netflix.gif" alt="gif netflix logo" class="mx-auto">
+    <h1><b>Re:Coded Production</b></h1>
+    <p>Some info about project and team members</p>
+    </div>
+    `;
+  });
+};
+about();
 // home button part
 function goToHomePage() {
   window.location.href = "index.html";
