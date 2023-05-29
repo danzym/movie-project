@@ -14,7 +14,7 @@ const autorun = async () => {
 	fetchActorsPage();
 };
 document.addEventListener('click', async (event) => {
-	if (event.target.matches('#home')) {
+	if (event.target.matches('#home') || event.target.matches('#logo')) {
 		const navItems = document.querySelector('#navbar-items');
 
 		window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -81,7 +81,7 @@ const fetchGenres = async () => {
 		const res = await fetch(url);
 		const data = await res.json();
 		const genres = document.querySelector('#genre-container');
-
+		CONTAINER.innerHTML = '';
 		let popoverContent = '<ul>';
 		data.genres.map((genre) => {
 			popoverContent += `<li><button class="genre-btn" value="${genre.id}">${genre.name}</button></li>`;
@@ -121,16 +121,25 @@ const fetchActorBy = async (path) => {
 	const url = constructUrl(`person/${path}`);
 	const res = await fetch(url);
 	const actorResults = await res.json();
+	console.log(actorResults);
 	return actorResults;
 };
 
 const fetchActorsPage = async () => {
 	const actorsLink = document.getElementById('actorsList');
 	actorsLink.addEventListener('click', (e) => {
+		document.getElementById('loader').style.display = 'block';
 		e.preventDefault();
 		fetchActorBy('popular').then((actorResults) => {
 			DETAIL.innerHTML = '';
-			DETAIL.innerHTML = '';
+			const navItems = document.querySelector('#navbar-items');
+			if (window.innerWidth <= 768) {
+				navItems.style.display = 'none';
+			}
+			setTimeout(() => {
+				document.getElementById('loader').style.display = 'none';
+			}, 500);
+
 			return renderActors(actorResults.results);
 		});
 	});
@@ -161,13 +170,13 @@ genreContainer.addEventListener('mouseout', function (event) {
 });
 
 // Event listener for genre buttons in the popover
-// Event listener for genre buttons in the popover
 document
 	.querySelector('#genre-container')
 	.addEventListener('click', async function (event) {
 		// check if we clicked on a genre button
 		if (event.target.className === 'genre-btn') {
 			const genreId = event.target.value;
+
 			const genreMovies = await fetchGenre(genreId);
 			const navItems = document.querySelector('#navbar-items');
 
@@ -175,6 +184,7 @@ document
 				navItems.style.display = 'none';
 			}
 			CONTAINER.innerHTML = '';
+			CONTAINER.className = '';
 			const details = document.querySelector('#details');
 			details.innerHTML = `			<div class="slider-container "></div>
 			<div class="slider-controls ">
@@ -200,6 +210,7 @@ const fetchGenre = async (genreId) => {
 		document.getElementById('loader').style.display = 'block';
 		const res = await fetch(url);
 		const data = await res.json();
+		CONTAINER.innerHTML = '';
 		setTimeout(() => {
 			document.getElementById('loader').style.display = 'none';
 		}, 1000);
@@ -267,6 +278,7 @@ document
 			const filteredMovies = await fetchMoviesByFilterType(filterType);
 			// Remove existing movies and display new ones
 			CONTAINER.innerHTML = '';
+			CONTAINER.className = '';
 			const details = document.querySelector('#details');
 			const navItems = document.querySelector('#navbar-items');
 			if (window.innerWidth <= 768) {
@@ -352,6 +364,7 @@ document
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
 	const sliderContainer = document.querySelector('.slider-container');
+
 	sliderContainer.innerHTML = '';
 	const slider = document.createElement('div');
 	slider.className = 'slider';
@@ -388,7 +401,7 @@ const renderMovie = async (movie) => {
 	const directorName = crew?.crew[0]?.name;
 	const actorsName = crew?.cast?.map((actor) => actor.name);
 	const actorsImage = crew?.cast?.map((actImage) => actImage?.profile_path);
-	console.log(actorsImage);
+	const actorId = crew?.cast?.map((actId) => actId);
 
 	const fetchMovie = await fetch(
 		`https://api.themoviedb.org/3/movie/${movie?.id}/videos?api_key=${atob(
@@ -399,6 +412,7 @@ const renderMovie = async (movie) => {
 	const trailer = movieTrailer?.results[0]?.key;
 
 	const renderDetails = document.getElementById('details');
+
 	renderDetails.innerHTML = `
   <div class="flex flex-col gap-4 px-6 bg-black">
     <div>
@@ -436,24 +450,26 @@ const renderMovie = async (movie) => {
 </div>
 
 <div class=' flex flex-col justify-center items-center w-full bg-black pt-12'>   
-    <h3 class='text-center text-2xl text-white font-bold'>Actors</h3>
+    <h3 class='text-center text-2xl text-red-600 font-bold'>Actors</h3>
     <ul class='gap-2  flex flex-start items-center' id="actors" class="list-unstyled"></ul>
-</div>
+		<h3 class='text-center text-2xl text-red-600 font-bold'>Similar Movies</h3>
 
+		<ul class='gap-2  flex flex-start items-center' id="similar-movie" class="list-unstyled"></ul>
 
- 
+</div> 
 `;
 
 	const actorsList = document.getElementById('actors');
-	actorsName.slice(0, 5).forEach((actorName, index) => {
+	actorId.slice(0, 5).forEach((actor, index) => {
+		console.log(actor);
 		const listItem = document.createElement('li');
-		listItem.textContent = actorName;
+		listItem.textContent = actor.name;
 
 		actorsList.appendChild(listItem);
 
 		const imageContainer = document.createElement('img');
 		imageContainer.classList.add('rounded-full');
-		const srcValue = BACKDROP_BASE_URL + actorsImage[index]; // Access each source value from the actorsImage array based on the current index
+		const srcValue = BACKDROP_BASE_URL + actor.profile_path; // Access each source value from the actorsImage array based on the current index
 		imageContainer.setAttribute('src', srcValue);
 		listItem.classList.add(
 			'flex',
@@ -473,6 +489,55 @@ const renderMovie = async (movie) => {
 			'actor'
 		);
 		listItem.appendChild(imageContainer);
+		listItem.addEventListener('click', async () => {
+			// Call the actorDetails function when the list item is clicked
+			DETAIL.innerHTML = '';
+			CONTAINER.innerHTML = '';
+			await fetchActorByID(actor);
+		});
+	});
+	// renderMovies(similarMovies?.results);
+	const getSimilarMovies = await fetch(
+		`https://api.themoviedb.org/3/movie/${movie?.id}/similar?api_key=${atob(
+			'NGViNmRiNGQ1MjBmOGNkNWYzZWY4Y2JjZjU5ZTZhMDI='
+		)}`
+	);
+	const similarMovies = await getSimilarMovies?.json();
+	const similarMovieList = document.getElementById('similar-movie');
+	similarMovies.results.slice(0, 5).forEach((movie, index) => {
+		const listItem = document.createElement('li');
+		listItem.textContent = movie.title;
+
+		similarMovieList.appendChild(listItem);
+
+		const imageContainer = document.createElement('img');
+		imageContainer.classList.add('rounded-full');
+		const srcValue = BACKDROP_BASE_URL + movie.backdrop_path; // Access each source value from the actorsImage array based on the current index
+		imageContainer.setAttribute('src', srcValue);
+		listItem.classList.add(
+			'flex',
+			'flex-col',
+			'justify-center',
+			'items-center',
+			'gap-2',
+			'mx-4',
+			'bg-black',
+			'text-white',
+			'p-4',
+			'rounded-md',
+			'hover:drop-shadow-md',
+			'hover:bg-red-800',
+			'bg-red-600',
+			'cursor-pointer',
+			'actor'
+		);
+		listItem.appendChild(imageContainer);
+		listItem.addEventListener('click', async () => {
+			// Call the actorDetails function when the list item is clicked
+			DETAIL.innerHTML = '';
+			CONTAINER.innerHTML = '';
+			await renderMovie(movie);
+		});
 	});
 };
 
@@ -513,39 +578,44 @@ const getSlideWidth = () => {
 
 //actor-page part
 const fetchActorByID = async (actor) => {
-	const actors = await fetchActorBy(actor.id);
-	if (actor.id == actors.id) {
+	const actors = await fetchActorBy(actor?.id);
+	if (actor && actor.id == actors?.id) {
 		CONTAINER.innerHTML = '';
 		CONTAINER.className = '';
-		CONTAINER.className = 'container actorPage my-5 p-5';
+		CONTAINER.className = 'container actorPage  my-5 p-5';
 		CONTAINER.innerHTML = `
       <div class="row">
       <div class="col-md-4 text-white">
       <h1>${actor.name}</h1>
-      <img class="img-fluid" src="${BACKDROP_BASE_URL + actor.profile_path}" />
+      <img class="img-fluid" src="${BACKDROP_BASE_URL + actor?.profile_path}" />
       <p><b>Gender:</b>${actor.gender === 2 ? 'Male' : 'Female'}</p>
-      <p><b>Birthdate:</b>${actors.birthday}</p>
-      <p><b>Deathdate:</b>${actors.deathday ? actors.deathday : 'Unknown'}</p>
+      <p><b>Birthdate:</b>${actors?.birthday}</p>
+      <p><b>Deathdate:</b>${actors?.deathday ? actors?.deathday : 'Unknown'}</p>
       <p><b>Popularity:</b>${
-				actors.popularity ? actors.popularity : 'Unknown'
+				actors?.popularity ? actors?.popularity : 'Unknown'
 			}</p>
       </div>
       <div class="col-md-8 mt-5 text-white">
       <h3>Biograpy:</h3><p>${
-				actors.biography ? actors.biography : 'Unknown'
+				actors?.biography ? actors?.biography : 'Unknown'
 			}</p>
       <h3>${actor.name}'s Other Works:</h3><ul id="actor-movie-list"></ul>
 			</div>
       </div>
-`;
+		`;
 		const actorOtherWorks = document.getElementById('actor-movie-list');
-		actor.known_for.forEach((movies) => {
+		console.log('actor', actor);
+		actor?.known_for?.forEach((movies) => {
 			const eachMovie = document.createElement('a');
 			eachMovie.setAttribute('href', '#');
 			eachMovie.innerHTML = `<li> ${movies.title} </li>`;
 			actorOtherWorks.appendChild(eachMovie);
-			eachMovie.addEventListener('click', () => {
-				movieDetails(movies);
+
+			eachMovie.addEventListener('click', async () => {
+				CONTAINER.innerHTML = '';
+				CONTAINER.className = '';
+
+				await movieDetails(movies);
 			});
 		});
 	}
@@ -570,8 +640,8 @@ const renderActors = (actors) => {
 			}" class="img-fluid p-2 mb-2 rounded" alt="Card image cap">
       </a>
     `;
-		actorDiv.addEventListener('click', () => {
-			fetchActorByID(actor);
+		actorDiv.addEventListener('click', async () => {
+			await fetchActorByID(actor);
 		});
 		CONTAINER.appendChild(actorDiv);
 	});

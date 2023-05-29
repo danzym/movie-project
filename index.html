@@ -31,8 +31,9 @@
 				<nav
 					class="flex bg-black justify-between sticky top-0 left-0 w-full z-10 text-white px-4 py-2 font-Bebas"
 				>
-					<div class="flex flex-col items-center justify-center mx-4">
+					<div  class="flex flex-col items-center justify-center mx-4  cursor-pointer">
 						<img
+						id="logo"
 							class="w-8 mt-3 text-center"
 							src="./images/Netflix_2015_N_logo.svg"
 							alt="Netflix Logo"
@@ -45,9 +46,9 @@
 							id="navbar-items"
 							class="flex gap-16 mr-4 w-full text-2xl navbar-items"
 						>
-							<li id="home" class="cursor-pointer hover:underline w-full">
+							<li  class="cursor-pointer hover:underline w-full">
 								
-							<button>Home</button>	</li>
+							<button id="home">Home</button>	</li>
 							<div id="actorsList-container">
 								<button id="actorsList">Actors</button>
 								<!-- actors will be appended here -->
@@ -102,7 +103,7 @@
 					</div>
 				</section>
 
-				<div class="container"></div>
+				
 
 				<div id="details" class="  text-white bg-gray-600 w-full">
 					<div class="slider-container "></div>
@@ -111,6 +112,7 @@
 						<button class="  text-white rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="nextSlide()">Next</button>
 					</div>
 				</div>
+				<div class="container"></div>
 				<footer class="w-full">
 					<div class="flex justify-center gap-4 p-4 bg-black">
 						<div>
