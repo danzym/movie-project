@@ -186,7 +186,7 @@ document
 			CONTAINER.innerHTML = '';
 			CONTAINER.className = '';
 			const details = document.querySelector('#details');
-			details.innerHTML = `			<div class="slider-container "></div>
+			details.innerHTML = `			<div class="slider-container bg-white "></div>
 			<div class="slider-controls ">
 				<button class="  text-white  rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="prevSlide()">Prev</button>
 				<button class="  text-white rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="nextSlide()">Next</button>
@@ -284,7 +284,7 @@ document
 			if (window.innerWidth <= 768) {
 				navItems.style.display = 'none';
 			}
-			details.innerHTML = `			<div class="slider-container "></div>
+			details.innerHTML = `			<div class="slider-container bg-white "></div>
 			<div class="slider-controls ">
 				<button class="  text-white  rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="prevSlide()">Prev</button>
 				<button class="  text-white rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="nextSlide()">Next</button>
@@ -351,7 +351,7 @@ document
 		// Remove existing movies and display new ones
 		CONTAINER.innerHTML = '';
 		const details = document.querySelector('#details');
-		details.innerHTML = `			<div class="slider-container "></div>
+		details.innerHTML = `			<div class="slider-container bg-white "></div>
 		<div class="slider-controls ">
 			<button class="  text-white  rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="prevSlide()">Prev</button>
 			<button class="  text-white rounded  hover:drop-shadow-md hover:bg-red-800 bg-red-600" onclick="nextSlide()">Next</button>
@@ -477,15 +477,17 @@ const renderMovie = async (movie) => {
 			'flex-col',
 			'justify-center',
 			'items-center',
+			'text-center',
 			'gap-2',
 			'mx-4',
 			'bg-black',
-			'text-white',
+			'text-black',
 			'p-4',
-			'rounded-md',
+			'rounded',
 			'hover:drop-shadow-md',
 			'hover:bg-red-800',
-			'bg-red-600',
+			'bg-white',
+			'font-bold',
 			'cursor-pointer',
 			'actor'
 		);
@@ -498,10 +500,10 @@ const renderMovie = async (movie) => {
 			console.log('renderMovie', actor);
 			// const actorList = document.querySelector('#actor-movie-list');
 			// actorList.innerHTML = '';
-			const actorsFullList = await fetchActorBy(popular);
+			// const actorsFullList = await fetchActorBy(popular);
 
-			const findActor = actorsFullList.find((actor) => actor.id === actor.id);
-			console.log(findActor);
+			// const findActor = actorsFullList.find((actor) => actor.id === actor.id);
+			// console.log(findActor);
 			await fetchActorByID(actor);
 			setTimeout(() => {
 				document.getElementById('loader').style.display = 'none';
@@ -534,12 +536,14 @@ const renderMovie = async (movie) => {
 			'gap-2',
 			'mx-4',
 			'bg-black',
-			'text-white',
+			'text-center',
+			'text-black',
 			'p-4',
-			'rounded-md',
+			'rounded',
+			'font-bold',
 			'hover:drop-shadow-md',
 			'hover:bg-red-800',
-			'bg-red-600',
+			'bg-white',
 			'cursor-pointer',
 			'actor'
 		);
@@ -665,22 +669,22 @@ const renderActors = (actors) => {
 	});
 };
 // end of actor-page part
-const about = () => {
-	const aboutPage = document.getElementById('about');
-	aboutPage.addEventListener('click', () => {
-		CONTAINER.innerHTML = '';
-		CONTAINER.className = '';
-		CONTAINER.className = 'container aboutPage my-5 p-5';
-		CONTAINER.innerHTML = `
+
+const aboutPage = document.getElementById('about');
+aboutPage.addEventListener('click', () => {
+	CONTAINER.innerHTML = '';
+	CONTAINER.className = '';
+	CONTAINER.className = 'container aboutPage my-5 p-5';
+	DETAIL.innerHTML = '';
+	CONTAINER.innerHTML = `
     <div class="text-center">
     <img src="netflix.gif" alt="gif netflix logo" class="mx-auto">
     <h1><b>Re:Coded Production</b></h1>
     <p>Some info about project and team members</p>
     </div>
     `;
-	});
-};
-about();
+});
+
 // home button part
 // function goToHomePage() {
 // 	window.location.href = 'index.html';
