@@ -1,43 +1,292 @@
-body{
-    font-family: 'Bebas Neue', sans-serif;
+body {
+	font-family: 'Bebas Neue', sans-serif;
+	min-height: 100vh;
+	position: relative;
+	padding-bottom: 140px;
+	background-color: #000000;
 }
 .font-Bebas {
-    font-family: 'Bebas Neue', sans-serif;
+	font-family: 'Bebas Neue', sans-serif;
+}
+footer {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	border-top: 1px rgb(207, 195, 195) solid;
+	left: 0;
 }
 
+#filters {
+	color: white;
+}
 #movie-backdrop {
-    width: 100%;
-}
-
-.container {
-    padding-top: 32px;
+	width: 100%;
 }
 
 #actors {
-    margin: 24px 16px 0 0;
+	margin: 24px 16px 0 0;
+	display: flex;
+	background-color: #000000;
+}
+#similar-movie {
+	margin: 24px 16px 0 0;
+	display: flex;
+	background-color: #000000;
+}
+
+:hover.actor {
+	transform: scale(1.05);
+	filter: drop-shadow(0 0 0.1rem #ff3d00);
 }
 .HeroImage {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: url(./images/Netflixbg.jpeg);
-    background-size: cover;
-    background-repeat: no-repeat;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 40vh;
+	background: url(./images/Netflixbg.jpeg);
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 .layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    z-index: 1;
-    opacity: 0.6;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	z-index: 1;
+	opacity: 0.6;
 }
 .HeroImage > .w-70 {
-    position: relative;
-    z-index: 2;
-  }
+	position: relative;
+	z-index: 2;
+}
+/* genres and filter styling */
+#genres-popover {
+	position: absolute;
+	top: 40px;
+	left: 40%;
+	min-width: 150px;
+	height: object-fit;
+	z-index: 3;
+	display: none;
+}
+#filters-popover {
+	position: absolute;
+	top: 40px;
+	left: 40%;
+	min-width: 150px;
+	height: object-fit;
+	z-index: 3;
+	display: none;
+}
 
+#filter-container {
+	width: object-fit;
+	height: object-fit;
+	z-index: 3;
+}
+#genre-container {
+	position: relative;
+}
+#filter-container {
+	position: relative;
+}
+
+/* General styles */
+#navbar-items {
+	display: flex;
+	flex-direction: row;
+	transition: all 0.5s ease;
+}
+
+/* Hide the navbar-items by default on small screens and show toggle button */
+
+#navbar-items {
+	display: flex;
+}
+.container {
+	background-color: #000000;
+}
+
+#navbar-items.hidden {
+	display: none;
+}
+
+/* :hover.genre-btn,
+:hover.filter-btn {
+	text-decoration: underline;
+} */
+
+/* Show the navbar-items and hide toggle button on large screens */
+
+.slider {
+	display: flex;
+	overflow-x: scroll;
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+	gap: 1rem;
+	width: 100%;
+	height: 100%;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+.slide {
+	flex: 0 0 100%;
+	scroll-snap-align: center;
+	margin-left: 1rem;
+}
+
+.slide img {
+	width: 100%;
+	height: auto;
+	transition: transform 0.3s ease;
+	border-radius: 10px;
+}
+
+.slide img:hover {
+	transform: scale(1.05);
+}
+/* #details {
+	background-color: white;
+} */
+
+.slider-controls {
+	display: flex;
+	justify-content: center;
+	padding-top: 1rem;
+	width: 100%;
+	padding-bottom: 1rem;
+}
+
+.slider-controls button {
+	margin: 0 0.5rem;
+	padding: 0.5rem;
+}
+.slider-controls button:hover {
+	text-decoration: underline;
+	transform: scale(1.05);
+}
+.loader {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(
+		0,
+		0,
+		0,
+		0.8
+	); /* Optional: This will darken the screen behind the spinner */
+	z-index: 9999; /* Optional: This ensures the loader appears above all other content */
+}
+
+.loader:before,
+.loader:after {
+	content: '';
+	border-radius: 50%;
+	position: absolute;
+	inset: 0;
+	box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.3) inset;
+	width: 100px;
+	height: 100px;
+	margin: auto; /* This will center the spinner */
+}
+
+.loader:after {
+	box-shadow: 0 2px 0 #ff3d00 inset;
+	animation: rotate 2s linear infinite;
+	width: 100px;
+	height: 100px;
+	margin: auto; /* This will center the spinner */
+}
+:hover.github {
+	transform: scale(1.05);
+	filter: drop-shadow(0 0 0.1rem #ff3d00);
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@media (min-width: 768px) {
+	.slide {
+		flex: 0 0 50%;
+	}
+}
+
+/* Large screens (e.g., desktops) */
+@media (min-width: 1200px) {
+	.slide {
+		flex: 0 0 33.33%;
+	}
+}
+@media (min-width: 769px) {
+	#navbar-items {
+		display: flex;
+		position: relative;
+	}
+	#navbar-toggle {
+		display: none;
+	}
+	#filters-popover {
+		left: 0;
+	}
+	#genres-popover {
+		left: 0;
+	}
+}
+@media (max-width: 768px) {
+	#navbar-items {
+		display: none;
+		flex-direction: column;
+		position: absolute;
+		top: 100%;
+		text-align: center;
+		left: 0;
+		width: 100%;
+		background-color: #000000;
+	}
+	#navbar-toggle {
+		display: block;
+	}
+	#actors {
+		flex-direction: column;
+	}
+	#similar-movie {
+		flex-direction: column;
+	}
+}
+
+.prev-button {
+	left: 0;
+}
+
+.next-button {
+	right: 0;
+}
+button:focus {
+	outline: none;
+}
+button {
+	transition: color 0.3s ease;
+}
+button:hover {
+	color: red;
+	text-decoration: underline;
+}
+.aboutPage {
+	background: rgba(255, 255, 255, 0.9);
+	border-radius: 10px;
+}
+/*Slider for movies */
