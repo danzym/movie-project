@@ -6,6 +6,11 @@ This project uses The Movie DB API: `https://api.themoviedb.org/3`. It is up to
 you to use your Google and Postman skills to explore the API and understand the
 data.
 
+# Live 
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/78bb3b1c-df49-4ebe-8f47-6817611a0931/deploy-status)](https://movieprojectre-coded.netlify.app/)
+
+
 # Already built for you
 
 - A home page that shows popular movies
