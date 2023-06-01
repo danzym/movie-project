@@ -148,9 +148,9 @@ footer {
 .slide img:hover {
 	transform: scale(1.05);
 }
-#details {
+/* #details {
 	background-color: white;
-}
+} */
 
 .slider-controls {
 	display: flex;

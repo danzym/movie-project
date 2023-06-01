@@ -450,7 +450,7 @@ const renderMovie = async (movie) => {
     </div>
 </div>
 
-<div class=' flex flex-col justify-center items-center w-full bg-transparent pt-12'>   
+<div class=' flex flex-col justify-center items-center w-full pt-12'>   
     <h3 class='text-center text-2xl text-red-600 font-bold'>Actors</h3>
     <ul class='gap-2  flex flex-start items-center' id="actors" class="list-unstyled"></ul>
 		<h3 class='text-center text-2xl text-red-600 font-bold'>Similar Movies</h3>
