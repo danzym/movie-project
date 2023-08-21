@@ -157,3 +157,8 @@ _please read this section carefully and follow these steps during the project_
 If you finish early you can work on the same functionalities, but for TV shows.
 Your code should be completely reusable (e.g., don't just copy paste a second
 copy of the files).
+
+## Project Disclaimer
+
+This website project, named 'Netflix,' is a personal project and is not affiliated with or endorsed by the official Netflix brand or
+service. It is intended for personal use and experimentation.
